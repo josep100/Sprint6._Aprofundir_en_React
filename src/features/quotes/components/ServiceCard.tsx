@@ -12,7 +12,7 @@ const ServiceCard = ({id, title, description, price, onChange}: {id: string, tit
                 <h3 className="text-3xl font-bold">{price} €</h3>
                 <fieldset className="flex gap-3">
                     <Checkbox id = {id} onCheckedChange = {(checked) => onChange(id, checked === true)} />
-                    <Label htmlFor = {id}>Afegir</Label>
+                    <Label htmlFor = {id}>Afegir { title }</Label>
                 </fieldset>
             </div>
         </>
