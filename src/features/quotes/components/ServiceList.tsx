@@ -1,17 +1,21 @@
-import { useState } from "react";
 import Card from "../../../components/ui/Card";
 import ServiceCard from "../../../features/quotes/components/ServiceCard";
 import quotes from "../services/quoteApi";
 import PriceSummary from "./PriceSummary";
+import { useQuote } from "../hooks/useQuote";
+import { useQuoteTotal } from "../hooks/useQuoteCalculator";
 
 const ServiceList = () => {
-  const [selectedServices, setSelectedServices] = useState<Record<string, boolean>>({});
-  const [webExtraPrice, setWebExtraPrice] = useState(0);
+  const {selectedServices, setSelectedServices, webExtraPrice, setWebExtraPrice} = useQuote();
+  const total = useQuoteTotal({selectedServices, webExtraPrice});
 
-  const handleServiceChange = (id: string, checked: boolean) => {
+  const handleServiceChange = (id: string, checked: boolean, title: string) => {
     setSelectedServices(prev => ({
       ...prev,
-      [id]: checked,
+      [id]: {
+            checked:checked,
+            title: title
+          }
     }));
 
     if (id === "3" && !checked) {
@@ -23,30 +27,20 @@ const ServiceList = () => {
     setWebExtraPrice(price);
   };
 
-  const total = quotes.reduce((acc, quote) => {
-    if (!selectedServices[quote.id]) return acc;
-
-    if (quote.id === "3") {
-      return acc + quote.price + webExtraPrice;
-    }
-
-    return acc + quote.price;
-  }, 0);
-
   return (
     <>
       {quotes.map(quote => {
             const isWeb = quote.title === "Web"; // o mejor: quote.type === "web"
-            const isExpanded = isWeb && selectedServices[quote.id];
+            const isExpanded = isWeb && selectedServices[quote.id]?.checked === true;
 
             return (
-                <Card key={quote.id} expanded={isExpanded}>
+                <Card key={quote.id} expanded={isExpanded} className = "grid grid-cols-1 lg:grid-cols-2 place-items-center items-center">
                 <ServiceCard
                     id={quote.id}
                     title={quote.title}
                     description={quote.description}
                     price={quote.price}
-                    selectedServices={selectedServices}
+                    selectedServices={selectedServices[quote.id]?.checked ?? false}
                     isWebChecked = {isExpanded}
                     onChange={handleServiceChange}
                     onWebPriceChange={onWebPriceChange}

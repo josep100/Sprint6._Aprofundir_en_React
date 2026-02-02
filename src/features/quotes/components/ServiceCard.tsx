@@ -13,11 +13,11 @@ const ServiceCard = ({id, title, description, price, selectedServices,isWebCheck
             <div className="flex items-center gap-4">
                 <h3 className="text-3xl font-bold">{price} €</h3>
                 <fieldset className="flex gap-3">
-                    <Checkbox id = {id} onCheckedChange = {(checked) => onChange(id, checked === true)}  />
+                    <Checkbox id = {id} checked={!!selectedServices[id]?.checked} onCheckedChange = {(checked) => onChange(id, checked === true,title)}  />
                     <Label htmlFor = {id}>Afegir { title }</Label>
                 </fieldset>
             </div>
-            {id === "3" && selectedServices[id] && <WebOptions isWebChecked = {isWebChecked} onWebPriceChange = {onWebPriceChange} />}
+            {id === "3" && selectedServices && <WebOptions isWebChecked = {isWebChecked} onWebPriceChange = {onWebPriceChange} />}
         </>
     );
 }

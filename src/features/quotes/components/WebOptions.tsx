@@ -1,14 +1,16 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import clsx from "clsx";
+import { useQuote } from "../hooks/useQuote";
 
 const WebOptions = ({onWebPriceChange,isWebChecked}: {isWebChecked: boolean, onWebPriceChange: (webExtraPrice: number) => void}) => {
     
-   const [dates, setDates] = useState({
-        pages: 0,
-        languages: 0,
-    });
+//    const [dates, setDates] = useState({
+//         pages: 0,
+//         languages: 0,
+//     });
+    const {dates, setDates } = useQuote();
 
     const handleWebTotalOptions = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;

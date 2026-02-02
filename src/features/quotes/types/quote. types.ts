@@ -10,9 +10,9 @@ export interface serviceCard {
     title: string, 
     description: string, 
     price: number, 
-    selectedServices: {[id: string]: boolean},
+    selectedServices: boolean,
     isWebChecked: boolean, 
-    onChange: (id: string, checked: boolean) => void, 
+    onChange: (id: string, checked: boolean, title: string) => void, 
     onWebPriceChange: (webExtraPrice: number) => void
 };
 
