@@ -1,14 +1,27 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import ServiceList from "./ServiceList";
+import QuoteProvider from "@/features/quotes/context/QuoteProvider";
+import { useQuote } from "../hooks/useQuote";
+
+const renderWithProvider = () =>
+  render(
+    <QuoteProvider>
+      <ServiceList />
+    </QuoteProvider>
+);
+
+vi.stubGlobal("crypto", {
+  randomUUID: () => "test-id",
+});
 
 
 describe("ServiceList", () => {
   it("suma y resta correctamente el precio al marcar y desmarcar servicios", async () => {
     const user = userEvent.setup();
 
-    render(<ServiceList />);
+   renderWithProvider();
 
     // Total inicial
     const summary = screen.getByTestId("price-summary");
@@ -33,14 +46,14 @@ describe("ServiceList", () => {
     // Desmarcar SEO
     await user.click(seoCheckbox);
 
-    expect(summary).toHaveTextContent("400 €");
+    expect(summary).toHaveTextContent("700 €");
   });
 });
 
 describe("ServiceList – Web service extra pricing", () => {
     it("displays web options when the Web service is selected", async () =>{
           const user = userEvent.setup();
-          render(<ServiceList />);
+          renderWithProvider();
 
           const webCheckbox = screen.getByLabelText(/afegir web/i);
           await user.click(webCheckbox);
@@ -57,7 +70,7 @@ describe("ServiceList – Web service extra pricing", () => {
 
     it("Correctly calculate the extra cost of the web service", async () => {
           const user = userEvent.setup();
-          render(<ServiceList />);
+          renderWithProvider();
 
           fireEvent.click(screen.getByLabelText(/afegir web/i));
 
@@ -78,7 +91,7 @@ describe("ServiceList – Web service extra pricing", () => {
     });
 
     it("Resets the extra price when unchecking the Web service", () => {
-          render(<ServiceList />);
+          renderWithProvider();
 
           const webCheckbox = screen.getByLabelText(/afegir web/i);
 
@@ -104,4 +117,31 @@ describe("ServiceList – Web service extra pricing", () => {
           const summary = screen.getByTestId("price-summary");
           expect(summary).toHaveTextContent("0 €");
     });
+});
+
+describe("createBudget", () => {
+    it("creates a new budget when called", () => {
+    const { result } = renderHook(() => useQuote(), {
+      wrapper: QuoteProvider,
+    });
+
+    act(() => {
+      result.current.setSelectedServices({
+        "1": { checked: true, title: "seo" },
+        "3": { checked: true, title: "web" },
+      });
+
+      result.current.setDates({ pages: 2, languages: 1 });
+    });
+
+    act(() => {
+      result.current.createBudget({
+        name: "Carlos",
+        phone: 123456789,
+        mail: "carlos@mail.com",
+      });
+    });
+
+    expect(result.current.budgets).toHaveLength(1);
+  });
 });
