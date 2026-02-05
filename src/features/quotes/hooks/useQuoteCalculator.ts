@@ -5,18 +5,24 @@ import type { SelectedService } from "../context/QuoteContext";
 type Params = {
   selectedServices: Record<string, SelectedService>;
   webExtraPrice: number;
+  isDiscountActive: boolean;
 };
 
-export const useQuoteTotal = ({ selectedServices, webExtraPrice }: Params) => {
+export const useQuoteTotal = ({
+  selectedServices,
+  webExtraPrice,
+  isDiscountActive,
+}: Params) => {
   return useMemo(() => {
-    return quotes.reduce((acc, quote) => {
+    const servicesTotal = quotes.reduce((acc, quote) => {
       if (!selectedServices[quote.id]?.checked) return acc;
-
-      if (quote.id === "3") {
-        return acc + quote.price + webExtraPrice;
-      }
-
       return acc + quote.price;
     }, 0);
-  }, [selectedServices, webExtraPrice]);
+
+    const totalWithoutDiscount = servicesTotal + webExtraPrice;
+
+    return isDiscountActive
+      ? totalWithoutDiscount * 0.8
+      : totalWithoutDiscount;
+  }, [selectedServices, webExtraPrice, isDiscountActive]);
 };

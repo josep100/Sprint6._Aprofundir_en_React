@@ -25,6 +25,7 @@ const QuoteProvider = ({children}: {children: ReactNode}) => {
 
     const [selectedServices, setSelectedServices] = useState({});
     const [webExtraPrice, setWebExtraPrice] = useState(0);
+    const [isDiscountActive, setIsDiscountActive] = useState(false)
     const [budgets, setBudgets] = useState<BudgetService[]>(() => {
         const stored = localStorage.getItem("budgets");
         return stored ? JSON.parse(stored) : [];
@@ -37,6 +38,7 @@ const QuoteProvider = ({children}: {children: ReactNode}) => {
     const total = useQuoteTotal({
         selectedServices,
         webExtraPrice,
+        isDiscountActive
     });
 
     const createBudget = ({name, phone, mail}: {name:string, phone:number, mail:string}) => {
@@ -69,6 +71,10 @@ const QuoteProvider = ({children}: {children: ReactNode}) => {
         });
     };
 
+    const toggleDiscount = (checked: boolean) => {
+         setIsDiscountActive(checked);
+    }
+
     const value = {
         selectedServices, 
         setSelectedServices,
@@ -79,7 +85,9 @@ const QuoteProvider = ({children}: {children: ReactNode}) => {
         total,
         createBudget,
         budgets,
-        resetQuote
+        resetQuote,
+        toggleDiscount,
+        isDiscountActive
     };
 
     return(

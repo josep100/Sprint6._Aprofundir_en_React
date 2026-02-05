@@ -41,6 +41,9 @@ type QuoteContextType = {
   budgets:BudgetService[];
   resetQuote: () => void;
 
+  toggleDiscount: (checked: boolean) => void;
+  isDiscountActive: boolean;
+
 };
 
 export const QuoteContext = createContext<QuoteContextType | null>(null);

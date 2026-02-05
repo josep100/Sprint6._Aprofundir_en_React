@@ -6,8 +6,8 @@ import { useQuote } from "../hooks/useQuote";
 import { useQuoteTotal } from "../hooks/useQuoteCalculator";
 
 const ServiceList = () => {
-  const {selectedServices, setSelectedServices, webExtraPrice, setWebExtraPrice} = useQuote();
-  const total = useQuoteTotal({selectedServices, webExtraPrice});
+  const {selectedServices, setSelectedServices, webExtraPrice, setWebExtraPrice, isDiscountActive} = useQuote();
+  const total = useQuoteTotal({selectedServices, webExtraPrice, isDiscountActive});
 
   const handleServiceChange = (id: string, checked: boolean, title: string) => {
     setSelectedServices(prev => ({
@@ -34,7 +34,7 @@ const ServiceList = () => {
             const isExpanded = isWeb && selectedServices[quote.id]?.checked === true;
 
             return (
-                <Card key={quote.id} expanded={isExpanded} className = "grid grid-cols-1 lg:grid-cols-2 place-items-center items-center">
+                <Card key={quote.id} expanded={isExpanded} className = "grid grid-cols-1 lg:grid-cols-3 place-items-center items-center">
                 <ServiceCard
                     id={quote.id}
                     title={quote.title}
