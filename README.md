@@ -1,73 +1,139 @@
-# React + TypeScript + Vite
+# Calculadora de Presupuestos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación de **calculadora de presupuestos** desarrollada con **React + TypeScript + Vite**, que permite crear presupuestos personalizados de servicios digitales, aplicar descuentos y gestionar opciones adicionales de forma dinámica.
 
-Currently, two official plugins are available:
+El proyecto se centra en la correcta **gestión de estado**, el **cálculo reactivo de precios**, la **arquitectura de componentes** y la **navegación entre vistas mediante React Router**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+![Vista de bienvenida](./src/assets/welcome.png)
+![Vista de la calculadora 1](./src/assets/calculator1.png)
+![Vista de la calculadora 2](./src/assets/calculator2.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologías usadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React: 18+
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router DOM
+- Context API
+- Vitest
+- Testing Library
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📸 Funcionalidades
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Pantalla de bienvenida con explicación de la aplicación
+- Navegación entre vistas mediante **React Router**
+- Selección de servicios (SEO, Ads, Web)
+- Personalización de servicios web (páginas, idiomas)
+- Cálculo del precio total en tiempo real
+- Aplicación de **descuento anual del 20%**
+- Visualización clara y reactiva del presupuesto
+- Interfaz limpia, accesible y responsive
+
+---
+
+## 🧱 Arquitectura de la aplicación
+
+La aplicación está dividida en componentes y lógica con responsabilidades claras:
+
+### WelcomePage
+- Pantalla inicial de la aplicación
+- Explica el propósito y funcionamiento de la calculadora
+- Redirige a la calculadora mediante routing
+
+### CalculatorPage
+- Vista principal de la calculadora
+- Renderiza los servicios disponibles
+- Muestra el precio total calculado
+
+### ServiceCard
+- Representa un servicio individual
+- Permite activar o desactivar el servicio
+- Comunica cambios al estado global
+
+### Context (QuoteContext)
+- Gestiona el estado global de los servicios seleccionados
+- Centraliza la lógica de selección y opciones
+- Facilita el cálculo reactivo del total
+
+La lógica de negocio está desacoplada de la presentación para facilitar el mantenimiento, la escalabilidad y el testing.
+
+---
+
+## 🧮 Cálculo del presupuesto
+
+El precio total se calcula de forma reactiva mediante un hook personalizado:
+
+- Se recorren los servicios seleccionados
+- Se suman los precios base
+- Se añaden extras (páginas, idiomas)
+- Se aplica el descuento si está activo
+- El total se actualiza automáticamente ante cualquier cambio
+
+Esto garantiza una **experiencia fluida e inmediata** para el usuario.
+
+---
+
+## 🧭 Routing
+
+La navegación entre vistas está implementada con **React Router**:
+
+- `/` → Pantalla de bienvenida (`WelcomePage`)
+- `/calculator` → Calculadora de presupuestos (`CalculatorPage`)
+
+Los botones de navegación permiten moverse entre vistas sin recargar la aplicación.
+
+---
+
+## 📂 Estructura del proyecto
+
+```txt
+src/
+├── components/
+│   ├── layout/
+│   │   
+│   ├── ui/
+|
+|-- features
+|    ├── quotes/
+|        ├── components/
+|        ├── context/
+|        ├── hooks/
+|        ├── services/
+|        ├── types/
+|        ├──utils/
+├── lib/
+├── pages/
+├── style/
+
+````
+ 
+ ## 1️⃣ Clonar el repositorio
+```bash
+git clone https://github.com/josep100/Sprint6._Aprofundir_en_React.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 2️⃣ Acceder al directorio del proyecto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+  cd tu-repositorio
 ```
+
+## 3️⃣ Instalar dependencias
+
+```bash
+  npm install
+```
+
+## 4️⃣ Ejecutar la aplicación en desarrollo
+
+```bash
+  npm run dev
+```
+
