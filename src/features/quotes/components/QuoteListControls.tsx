@@ -6,8 +6,8 @@ const QuoteListControls = ({search, setSortType, onSearchChange}: {search: strin
         return(
             <Section className="w-2/3 flex justify-end gap-6 mb-6">
                 <Input className="w-1xl" value={search} onChange={e => onSearchChange(e.target.value)} placeholder="Cerca per nom…" />
-                <Button type="button" onClick={() => setSortType("default")}>Import </Button>
-                <Button type="button" onClick={() => setSortType("alpha")}>Nom </Button>
+                <Button className="bg-transparent text-black hover:bg-transparent cursor-pointer" type="button" onClick={() => setSortType("default")}>Import </Button>
+                <Button className="bg-transparent text-black hover:bg-transparent cursor-pointer" type="button" onClick={() => setSortType("alpha")}>Nom </Button>
             </Section>
         );
 }

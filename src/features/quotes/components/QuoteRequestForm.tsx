@@ -131,7 +131,7 @@ const QuoteRequestForm = () => {
           </Label>
 
           <Button type="submit" className="ml-6 bg-green-700">
-            Añadir pressupost <ArrowRight />
+            Afegir pressupostos <ArrowRight />
           </Button>
         </div>
       </fieldset>
