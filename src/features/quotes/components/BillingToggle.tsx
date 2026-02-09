@@ -9,16 +9,16 @@ const BillingToggle = () => {
         const { toggleDiscount } = useQuote();
 
     return (
-        <div className="flex justify-around gap-6 my-7">
-            <Link to="/">
+        <div className="flex flex-col items-center md:flex-row md:justify-around my-7">
+            <Link className="mb-4 md:mb-0" to="/">
                 <Button className="bg-transparent text-black hover:bg-transparent cursor-pointer">
                     <ArrowLeft className="h-4 w-4" />
                     Torna a l'inici
                 </Button>
             </Link>
-            <div className="flex gap-7">
+            <div className="flex items-center gap-5 md:gap-7">
                 <Label>Pagament Mensual</Label>
-                <Switch className="data-[state=checked]:bg-green-500 scale-150 " onCheckedChange={(checked) => toggleDiscount(checked)} />
+                <Switch aria-label="discount" className="data-[state=checked]:bg-green-500 scale-150 " onCheckedChange={(checked) => toggleDiscount(checked)} />
                 <Label>Pagament Anual</Label>
             </div>
         </div>

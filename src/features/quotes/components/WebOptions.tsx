@@ -33,9 +33,9 @@ const WebOptions = ({onWebPriceChange,isWebChecked}: {isWebChecked: boolean, onW
     },[dates.pages, dates.languages, isWebChecked]);
 
      return(
-            <fieldset className="grid gap-4 col-start-3">
+            <fieldset className="w-full place-items-center md:col-start-3">
                 <div className={clsx(
-                    "grid grid-cols-2 justify-items-end gap-1 transition-all duration-300 overflow-hidden",
+                    "grid grid-cols-2 gap-x-4 gap-y-3 transition-all duration-300 overflow-hidden",
                     {
                         "max-h-40 opacity-100": isWebChecked,
                         "max-h-0 opacity-0": !isWebChecked

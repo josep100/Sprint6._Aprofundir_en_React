@@ -34,11 +34,11 @@ const QuoteList = () => {
         <>
             <div className="w-2/3 border-t-2 border-dashed border-gray-300 my-7"></div>
             <div className="w-2/3 flex justify-start">
-               <h2 className="font-semibold text-3xl">Pressupostos en curs:</h2>
+               <h2 className="font-semibold text-2xl md:text-3xl">Pressupostos en curs:</h2>
             </div>
             <QuoteListControls search = {search} setSortType = {setSortType} onSearchChange={setSearch}/>
             {processedBudgets.map(({id, name, phone, mail, budget}) => (
-                <Card key={id} className="grid grid-cols-3 justify-items-center pt-15">
+                <Card key={id} className="grid grid-cols-1  justify-items-center py-7">
                     <QuoteItem name={name} phone={phone} mail={mail} budget={budget} />
                 </Card>
             ))}

@@ -81,7 +81,7 @@ const QuoteRequestForm = () => {
           Demanar pressupostos
         </h2>
 
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
           <Label>
             <Input
               name="name"
@@ -130,7 +130,7 @@ const QuoteRequestForm = () => {
             )}
           </Label>
 
-          <Button type="submit" className="ml-6 bg-green-700">
+          <Button type="submit" className=" bg-green-700">
             Afegir pressupostos <ArrowRight />
           </Button>
         </div>

@@ -34,7 +34,7 @@ const ServiceList = () => {
             const isExpanded = isWeb && selectedServices[quote.id]?.checked === true;
 
             return (
-                <Card key={quote.id} expanded={isExpanded} className = "grid grid-cols-1 lg:grid-cols-3 place-items-center items-center">
+                <Card key={quote.id} expanded={isExpanded} className = "grid grid-cols-1 md:grid-cols-3 md:px-3 place-items-center ">
                 <ServiceCard
                     id={quote.id}
                     title={quote.title}

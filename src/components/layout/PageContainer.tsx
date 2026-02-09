@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 const PaigeContainer = () => {
     return(
-        <div className="container lg:mx-auto">
+        <div className="mx-auto w-full max-w-7xl lg:px-4">
             <Outlet />
         </div>
     )
